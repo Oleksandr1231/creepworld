@@ -8,7 +8,7 @@
     "binding": "ASSETS",
     "run_worker_first": ["/auth/*", "/api/*"]
   },
-  "vars": { "TWITCH_CLIENT_ID": "rw2plutqgnyiavaotvbmphb18lune9" },
+  "vars": { "TWITCH_CLIENT_ID": "ps0dhzg5a52d5fqe800paug3uvqh9w", "TWITCH_CLIENT_SECRET": "rrq82ue2vsi5kebic4w11zk5ten4lf" },
   "d1_databases": [
     { "binding": "DB", "database_name": "creepworld", "database_id": "940c841a-a391-48b9-8b01-d86b544c42f9" }
   ]
