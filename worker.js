@@ -54,7 +54,7 @@ async function callback(req, url, env) {
       redirect_uri: url.origin + "/auth/callback",
     }),
   }).then(r => r.json());
-  if (!tok.access_token) return new Response("Twitch отклонил вход", { status: 400 });
+  if (!tok.access_token) return new Response("Twitch отклонил вход: " + (tok.message || tok.error || "") + " (" + (tok.status || "") + ")", { status: 400 });
 
   const u = (await fetch("https://api.twitch.tv/helix/users", {
     headers: { authorization: "Bearer " + tok.access_token, "client-id": env.TWITCH_CLIENT_ID },
