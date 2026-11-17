@@ -1,14 +1,14 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
+:root { --w: min(94vw, calc((100vh - 48px) * 16 / 9)); }
+
+body {
   background: #0b0b0f;
   color: #e6e6e6;
   font-family: system-ui, sans-serif;
 }
 
-/* большое окно 16:9 по центру страницы */
+/* большое окно 16:9 по центру */
 .stage {
   width: 100vw;
   height: 100vh;
@@ -19,7 +19,7 @@ html, body {
 
 .frame {
   position: relative;
-  width: min(94vw, (100vh - 48px) * 16 / 9);
+  width: var(--w);
   aspect-ratio: 16 / 9;
   border: 1px solid #2a2a33;
   border-radius: 10px;
@@ -47,6 +47,26 @@ canvas {
 .hud .logo { margin-right: auto; color: #7CFC00; font-weight: 700; letter-spacing: 2px; }
 .hud b { color: #ffb000; font-variant-numeric: tabular-nums; }
 
+.user { display: flex; align-items: center; gap: .6em; pointer-events: auto; }
+.playing .user { pointer-events: none; opacity: .5; }
+.user img, .board img {
+  width: 1.6em; height: 1.6em;
+  border-radius: 50%;
+  background: #222;
+  object-fit: cover;
+}
+.login, .link {
+  color: #7CFC00;
+  background: none;
+  border: 1px solid #7CFC00;
+  border-radius: 6px;
+  padding: .25em .8em;
+  font-size: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.login:hover, .link:hover { background: rgba(124, 252, 0, .12); }
+
 #overlay {
   position: absolute;
   inset: 0;
@@ -62,6 +82,7 @@ canvas {
 #overlay[hidden] { display: none; }
 #overlay h2 { font-size: clamp(22px, 3vw, 56px); color: #7CFC00; }
 #overlay p { max-width: 40em; font-size: clamp(14px, 1.3vw, 26px); color: #bbb; }
+#saved { color: #ffb000; min-height: 1.5em; }
 
 button {
   background: #7CFC00;
@@ -73,4 +94,30 @@ button {
   cursor: pointer;
 }
 button:hover { background: #a6ff4d; }
-button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+button:disabled { opacity: .5; cursor: default; }
+button:focus-visible, .login:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+button.link { padding: .25em .8em; }
+button.link:hover { background: rgba(124, 252, 0, .12); }
+
+/* рейтинг под игрой */
+.board {
+  width: var(--w);
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+.board h2 { color: #7CFC00; margin-bottom: 1rem; }
+.board ol { list-style: none; counter-reset: rank; border: 1px solid #222; border-radius: 8px; overflow: hidden; }
+.board li {
+  counter-increment: rank;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .6rem 1rem;
+  border-bottom: 1px solid #1c1c22;
+}
+.board li:last-child { border-bottom: 0; }
+.board li::before { content: counter(rank); width: 2rem; color: #777; font-variant-numeric: tabular-nums; }
+.board li span { flex: 1; }
+.board li b { color: #ffb000; font-variant-numeric: tabular-nums; }
+.board li.me { background: rgba(124, 252, 0, .08); }
+.board p { color: #888; }
